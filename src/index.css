@@ -36,6 +36,8 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  line-height: 1.2;
+  display: inline-block;
  }
 
  .radial-gradient {
@@ -87,7 +89,7 @@ body {
 }
 
 #hero h1 {
- @apply md:mt-32 mt-40 text-8xl md:text-[20vw] leading-none text-center;
+ @apply text-5xl md:text-[5vw] leading-none text-center;
 }
 
 #hero .left-leaf {
