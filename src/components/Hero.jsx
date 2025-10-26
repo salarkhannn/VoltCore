@@ -1,9 +1,14 @@
 import { useGSAP } from '@gsap/react'
-import React from 'react'
+import { useRef } from 'react'
 import { SplitText } from 'gsap/all';
 import gsap from 'gsap';
+import { useMediaQuery } from 'react-responsive';
 
 const Hero = () => {
+    const videoRef = useRef();
+
+    const isMobile = useMediaQuery({ maxWidth: 767 });
+
     useGSAP(() => {
         const heroSplit = new SplitText('.title', { type: 'chars, words' });
         const paragraphSplit = new SplitText('.subtitle', { type: 'lines' });
@@ -25,28 +30,66 @@ const Hero = () => {
             stagger: 0.03,
             delay: 0.2,
         })
+
+        const startValue = isMobile ? 'top 50%' : 'center 60%';
+        const endValue = isMobile ? '120% top' : 'bottom top';
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: 'video',
+                start: startValue,
+                end: endValue,
+                scrub: true,
+                pin: true,
+            }
+        })
+
+        videoRef.current.onloadedmetadata = () => {
+            tl.to(videoRef.current, {
+                currentTime: videoRef.current.duration
+            })
+        }
     })
 
     return (
     <>
-        <section id="hero" className='noisy'>
-            <div className='flex flex-col items-center mt-40 md:mt-32'>
-                <p className='subtitle text-center text-2xl tracking-tighter italic'>Intelligence begins at the core.</p>
+        <section
+            id="hero"
+            className="
+                relative
+                overflow-hidden
+                before:absolute
+                before:inset-0
+                before:bg-gradient-to-b
+                before:from-black
+                before:to-transparent
+                before:pointer-events-none
+            "
+        >
+            <div className='flex flex-col items-center mt-40 md:mt-40 z-10 relative'>
+                <p className='subtitle text-center text-2xl tracking-tighter italic'>
+                    Intelligence begins at the core.
+                </p>
                 <h1 className="title tracking-tight font-medium leading-[0.6]">
-                    <span >The Future of Compute,</span><br/>
-                    <span >Engineered in Silicon</span>
+                    <span>The Future of Compute,</span><br/>
+                    <span>Engineered in Silicon</span>
                 </h1>
-                <p className='subtitle text-center text-sm md:text-md lg:text-lg tracking-tight max-w-xl md:max-w-4xl pt-6 leading-relaxed'>Engineered to accelerate intelligence at every layer of computing — from silicon-level architecture to real-time inference — enabling machines to think faster, adapt smarter, and operate with unprecedented efficiency.</p>
+                <p className='subtitle text-center text-sm md:text-md lg:text-lg tracking-tight max-w-xl md:max-w-4xl pt-6 leading-relaxed'>
+                    Engineered to accelerate intelligence at every layer of computing — from silicon-level architecture to real-time inference — enabling machines to think faster, adapt smarter, and operate with unprecedented efficiency.
+                </p>
             </div>
+        </section>
 
-            <div className='body'>
-                <div className='content'>
-                    <div className='space-y-5 hidden md:block'>
-                        
-                    </div>
-                </div>
-            </div>
-        </section>'
+
+        <div className='video absolute inset-0 w-full pt-80'>
+            <video
+                ref={videoRef}
+                src='/video/output.mp4'
+                muted
+                playsInline
+                preload='auto'
+            />
+        </div>
     </>
     )
 }
