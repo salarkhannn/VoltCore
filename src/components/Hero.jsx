@@ -31,8 +31,8 @@ const Hero = () => {
             delay: 0.2,
         })
 
-        const startValue = isMobile ? 'bottom bottom' : 'center 60%';
-        const endValue = isMobile ? '120% top' : 'bottom top';
+        const startValue = isMobile ? 'top top' : 'center 70%';
+        const endValue = isMobile ? 'bottom center' : 'bottom top';
 
         const tl = gsap.timeline({
             scrollTrigger: {
@@ -41,7 +41,7 @@ const Hero = () => {
                 end: endValue,
                 scrub: true,
                 pin: true,
-                markers: true
+                // markers: true
             }
         })
 
@@ -51,19 +51,22 @@ const Hero = () => {
             })
         }
 
+        const aboutStartValue = isMobile ? 'top top' : 'top center';
+        const aboutEndValue = isMobile ? 'center center' : 'center center'
+
         tl.fromTo(".about",
             {
-                clipPath: "inset(50% 50% 50% 50%)",
+                clipPath: "inset(20% 10% 20% 10%)",
             },
             {
                 clipPath: "inset(0% 0% 0% 0%)",
                 ease: "none",
                 scrollTrigger: {
-                    trigger: ".about-wrapper",
-                    start: "center center",
-                    end: "center 10%",
+                    trigger: ".about",
+                    start: aboutStartValue,
+                    end: aboutEndValue,
                     scrub: 1,
-                    // markers: true,
+                    markers: true,
                 }
             }
         )
@@ -98,18 +101,22 @@ const Hero = () => {
                     </p>
                 </div>
             </section>
-            <div className='video absolute inset-0 w-full pt-0 top-0 md:pt-80 mb-20 sm:mb-0'>
+            <div className='video left-0 md:object-contain object-bottom object-cover w-auto h-[100vh] lg:w-full lg:h-auto absolute bottom-0 inset-0 top-0'>
                 <video
                     ref={videoRef}
-                    src='/video/output3.mp4'
+                    src='/video/output4.mp4'
                     muted
                     playsInline
                     preload='auto'
+                    className='w-full h-full object-cover'
                 />
             </div>
         </div>
-        <div className='h-screen sticky top-0 bg-amber-900 about flex items-center justify-center about'>
-            <h1 className='text-black text-7xl'>HAPPY BIRTHDAY DOODA</h1>
+        <div className='h-[300vh] sticky top-0 bg-white about flex items-center justify-center'>
+            <h1 className='text-black text-7xl'>HELLO HOW ARE YOU</h1>
+        </div>
+        <div className='h-[150vh] sticky top-0 bg-blue-500 flex items-center justify-center'>
+            <h1 className='text-black text-7xl'>HELLO HOW ARE YOU</h1>
         </div>
     </div>
     )
