@@ -38,6 +38,7 @@ const Hero = () => {
             scrollTrigger: {
                 trigger: 'video',
                 start: startValue,
+                endTrigger: ".about",
                 end: endValue,
                 scrub: true,
                 pin: true,
@@ -56,7 +57,7 @@ const Hero = () => {
 
         tl.fromTo(".about",
             {
-                clipPath: "inset(20% 10% 20% 10%)",
+                clipPath: "inset(50% 50% 50% 50%)",
             },
             {
                 clipPath: "inset(0% 0% 0% 0%)",
@@ -113,9 +114,6 @@ const Hero = () => {
             </div>
         </div>
         <div className='h-[300vh] sticky top-0 bg-white about flex items-center justify-center'>
-            <h1 className='text-black text-7xl'>HELLO HOW ARE YOU</h1>
-        </div>
-        <div className='h-[150vh] sticky top-0 bg-blue-500 flex items-center justify-center'>
             <h1 className='text-black text-7xl'>HELLO HOW ARE YOU</h1>
         </div>
     </div>
